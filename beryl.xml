@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <project name="aditya-roms/hardware_xiaomi" path="hardware/xiaomi" remote="github" revision="lineage-23.0" />
-  <project name="aditya-roms/hardware_mediatek" path="hardware/mediatek" remote="github" revision="lineage-23.0" />
-  <project name="aditya-roms/device_mediatek_sepolicy_vndr" path="device/mediatek/sepolicy_vndr" remote="github" revision="lineage-23.0" />
-  <project name="aditya-roms/device_xiaomi_beryl" path="device/xiaomi/beryl" remote="github" revision="lineage-23.0" />
-  <project name="aditya-roms/device_xiaomi_beryl-kernel" path="device/xiaomi/beryl-kernel" remote="github" revision="lineage-23.0" />
-  <project name="aditya-roms/vendor_xiaomi_beryl" path="vendor/xiaomi/beryl" remote="github" revision="lineage-23.0" />
-  <project name="techyminati/android_vendor_mediatek_ims" path="vendor/mediatek/ims" remote="github" revision="android-16" />
+  <!-- Device Tree (আপনার নিজের ফোর্ক) -->
+  <project name="jhaidh277/device_xiaomi_beryl" path="device/xiaomi/beryl" remote="github" revision="main" />
+
+  <!-- LineageOS 23.2 Dependencies -->
+  <project name="LineageOS/android_hardware_xiaomi" path="hardware/xiaomi" remote="github" revision="lineage-23.2" />
+  <project name="LineageOS/android_hardware_mediatek" path="hardware/mediatek" remote="github" revision="lineage-23.2" />
+  <project name="LineageOS/android_device_mediatek_sepolicy_vndr" path="device/mediatek/sepolicy_vndr" remote="github" revision="lineage-23.2" />
+  
+  <!-- LineageOS 23.2 Vendor & IMS -->
+  <project name="LineageOS/android_vendor_mediatek_ims" path="vendor/mediatek/ims" remote="github" revision="lineage-23.2" />
+  
+  <!-- Kernel ও Vendor এর জন্য আপনার আগের কাজ করা রিপোজিটরিগুলো ব্যবহার করুন (কারণ অফিসিয়াল LineageOS এ beryl এর জন্য এগুলো নাও থাকতে পারে) -->
+  <project name="aditya-roms/device_xiaomi_beryl-kernel" path="kernel/xiaomi/beryl" remote="github" revision="lineage-23.2" />
+  <project name="aditya-roms/vendor_xiaomi_beryl" path="vendor/xiaomi/beryl" remote="github" revision="lineage-23.2" />
 </manifest>
