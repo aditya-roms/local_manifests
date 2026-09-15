@@ -41,4 +41,7 @@ git clone https://github.com/techyminati/android_vendor_mediatek_ims.git -b andr
 # 6. Hardware Dependencies
 git clone https://github.com/aditya-roms/hardware_xiaomi.git -b 16.2-rebase hardware/xiaomi
 git clone https://github.com/aditya-roms/hardware_mediatek.git -b 16.2-rebase hardware/mediatek
+
+# 7. FM Radio App (with 64-bit MTK fix)
+git clone https://github.com/aditya-roms/packages_apps_RevampedFMRadio.git -b mtk packages/apps/RevampedFMRadio
 ```
