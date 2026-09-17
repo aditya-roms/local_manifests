@@ -45,3 +45,57 @@ git clone https://github.com/aditya-roms/hardware_mediatek.git -b 16.2-rebase ha
 # 7. FM Radio App (with 64-bit MTK fix)
 git clone https://github.com/aditya-roms/packages_apps_RevampedFMRadio.git -b mtk packages/apps/RevampedFMRadio
 ```
+
+---
+
+## 🚀 Building the ROM
+
+Once the sources are synced:
+
+```bash
+# Set up build environment
+source build/envsetup.sh
+
+# Lunch target (Android 16 3-part syntax)
+lunch lineage_beryl-bp4a-user        # for user build (official)
+# or:
+lunch lineage_beryl-bp4a-userdebug   # for userdebug build
+
+# Start the build
+m bacon -j$(nproc --all)
+```
+
+---
+
+## 🛠️ What to Use Instead of `lunch` (If `lunch` Doesn't Work)
+
+If `lunch` fails, throws `Don't have a product spec for: 'lineage_beryl'`, or fails to resolve dependencies, use either of these alternatives:
+
+### Alternative 1: Use `breakfast` (Recommended)
+LineageOS / crDroid provides the `breakfast` command which automatically discovers and configures the device:
+
+```bash
+source build/envsetup.sh
+breakfast beryl user             # for user build
+# or:
+breakfast beryl userdebug        # for userdebug build
+
+m bacon -j$(nproc --all)
+```
+
+### Alternative 2: Direct Environment Variables (Bypass `lunch` completely)
+You can completely bypass `lunch` by exporting the build environment variables directly in your terminal:
+
+```bash
+source build/envsetup.sh
+
+# Directly export target environment variables
+export TARGET_PRODUCT=lineage_beryl
+export TARGET_RELEASE=bp4a
+export TARGET_BUILD_VARIANT=user      # or userdebug
+export LINEAGE_BUILD=beryl
+
+# Start compilation directly
+m bacon -j$(nproc --all)
+```
+
