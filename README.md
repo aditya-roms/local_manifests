@@ -72,18 +72,26 @@ m bacon -j$(nproc --all)
 If `lunch` fails, throws `Don't have a product spec for: 'lineage_beryl'`, or fails to resolve dependencies, use either of these alternatives:
 
 ### Alternative 1: Use `breakfast` (Recommended)
-LineageOS / crDroid provides the `breakfast` command which automatically discovers and configures the device:
+LineageOS / crDroid / MistOS provides the `breakfast` command which automatically discovers and configures the device:
 
 ```bash
 source build/envsetup.sh
-breakfast beryl user             # for user build
+breakfast beryl user             # for official user build
 # or:
 breakfast beryl userdebug        # for userdebug build
 
 m bacon -j$(nproc --all)
 ```
 
-### Alternative 2: Direct Environment Variables (Bypass `lunch` completely)
+### Alternative 2: Use `brunch` (All-in-one command)
+`brunch` combines `breakfast` and `m bacon` in a single command:
+
+```bash
+source build/envsetup.sh
+brunch beryl user
+```
+
+### Alternative 3: Direct Environment Variables (Bypass `lunch` completely)
 You can completely bypass `lunch` by exporting the build environment variables directly in your terminal:
 
 ```bash
@@ -97,5 +105,26 @@ export LINEAGE_BUILD=beryl
 
 # Start compilation directly
 m bacon -j$(nproc --all)
+```
+
+---
+
+## 🔧 Troubleshooting
+
+### Duplicate module error during `soong_build` (`protobuf_vendorcompat`)
+If you encounter:
+```
+error: hardware/lineage/compat/Android.bp: module "prebuilt_libprotobuf-cpp-full-*-vendorcompat" already defined
+       prebuilts/misc/protobuf_vendorcompat/Android.bp: <-- previous definition here
+```
+**Fix:** Update your device tree to the latest commit:
+```bash
+git -C device/xiaomi/beryl pull origin lineage-23.2-6.12
+```
+The device tree automatically adds `PRODUCT_SOURCE_ROOT_DIRS += -prebuilts/misc/protobuf_vendorcompat` in `device.mk`, instructing Soong to skip the conflicting AOSP prebuilts.
+
+Alternatively, you can quickly remove the duplicate AOSP file in your source:
+```bash
+rm -f prebuilts/misc/protobuf_vendorcompat/Android.bp
 ```
 
