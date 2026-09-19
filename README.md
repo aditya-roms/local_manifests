@@ -128,3 +128,25 @@ Alternatively, you can quickly remove the duplicate AOSP file in your source:
 rm -f prebuilts/misc/protobuf_vendorcompat/Android.bp
 ```
 
+### Qualcomm HAL dependency errors during `soong_build` (`snapalloc` / `libvmmem_headers`)
+If you encounter:
+```
+error: hardware/qcom-caf/sm8750/display/core/snapalloc/Android.bp: "vendor.qti.hardware.display.snapalloc-impl" depends on undefined module "libvmmem_headers"
+```
+**Why it happens:** Redmi Note 14 5G (`beryl`) is a **MediaTek (MT6855)** device and does not use Qualcomm CAF hardware components. Some ROM trees contain mismatched or broken Qualcomm HAL namespaces that fail Blueprint dependency resolution.
+
+**Fix:** Update your device tree to the latest commit:
+```bash
+# For Lineage / crDroid:
+git -C device/xiaomi/beryl pull origin lineage-23.2-6.12
+
+# For MistOS:
+git -C device/xiaomi/beryl pull origin mistos-16.2-6.12
+```
+The device tree automatically adds `PRODUCT_SOURCE_ROOT_DIRS += -hardware/qcom -hardware/qcom-caf` in `device.mk`, instructing Soong to skip all unnecessary Qualcomm HALs during compilation.
+
+Alternatively, on the build server you can remove the broken Qualcomm folders:
+```bash
+rm -rf hardware/qcom-caf/sm8750 hardware/qcom-caf/sm8450-6.6
+```
+
