@@ -44,6 +44,9 @@ git clone https://github.com/aditya-roms/hardware_mediatek.git -b 16.2-rebase ha
 
 # 7. FM Radio App (with 64-bit MTK fix)
 git clone https://github.com/aditya-roms/packages_apps_RevampedFMRadio.git -b mtk packages/apps/RevampedFMRadio
+
+# 8. Qualcomm Libvmmem (required by QTI display HALs)
+git clone https://github.com/LineageOS/android_vendor_qcom_opensource_libvmmem.git -b lineage-23.2 vendor/qcom/opensource/libvmmem
 ```
 
 ---
