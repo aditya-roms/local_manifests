@@ -133,20 +133,11 @@ If you encounter:
 ```
 error: hardware/qcom-caf/sm8750/display/core/snapalloc/Android.bp: "vendor.qti.hardware.display.snapalloc-impl" depends on undefined module "libvmmem_headers"
 ```
-**Why it happens:** Redmi Note 14 5G (`beryl`) is a **MediaTek (MT6855)** device and does not use Qualcomm CAF hardware components. Some ROM trees contain mismatched or broken Qualcomm HAL namespaces that fail Blueprint dependency resolution.
+**Why it happens:** In Android 16, Qualcomm display HALs depend on `libvmmem` and `libvmmem_headers`. Some ROM source manifests (like MistOS) are missing LineageOS commit [`335a78fb32`](https://github.com/LineageOS/android/commit/335a78fb320106ec5ac4b64f255678db2420fb49) which tracks `vendor/qcom/opensource/libvmmem`.
 
-**Fix:** Update your device tree to the latest commit:
+**Fix:** Track `libvmmem` by cloning it into your source tree:
 ```bash
-# For Lineage / crDroid:
-git -C device/xiaomi/beryl pull origin lineage-23.2-6.12
-
-# For MistOS:
-git -C device/xiaomi/beryl pull origin mistos-16.2-6.12
+git clone https://github.com/LineageOS/android_vendor_qcom_opensource_libvmmem.git -b lineage-23.2 vendor/qcom/opensource/libvmmem
 ```
-The device tree automatically adds `PRODUCT_SOURCE_ROOT_DIRS += -hardware/qcom -hardware/qcom-caf` in `device.mk`, instructing Soong to skip all unnecessary Qualcomm HALs during compilation.
-
-Alternatively, on the build server you can remove the broken Qualcomm folders:
-```bash
-rm -rf hardware/qcom-caf/sm8750 hardware/qcom-caf/sm8450-6.6
-```
+*(This is also included in `beryl.xml` so running `repo sync` will pull it automatically).*
 
